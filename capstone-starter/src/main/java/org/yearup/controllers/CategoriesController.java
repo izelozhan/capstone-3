@@ -52,7 +52,6 @@ public class CategoriesController {
     }
 
 
-
     // the url to return all products in category 1 would look like this
     // https://localhost:8080/categories/1/products
 
@@ -64,6 +63,8 @@ public class CategoriesController {
 
     // add annotation to call this method for a POST action
     // add annotation to ensure that only an ADMIN can call this function
+    @PostMapping()
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public Category addCategory(@RequestBody Category category) {
         // insert the category
         return categoryDao.create(category);
