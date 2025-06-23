@@ -1,8 +1,11 @@
 package org.yearup.data.mysql;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
+import org.springframework.web.server.ResponseStatusException;
 import org.yearup.data.CategoryDao;
 import org.yearup.models.Category;
+import org.yearup.models.Product;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -120,6 +123,10 @@ public class MySqlCategoryDao extends MySqlDaoBase implements CategoryDao {
     @Override
     public void delete(int categoryId) {
         // delete category
+        Category category = getById(categoryId);
+        if (category == null){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
         String sql = "DELETE FROM categories WHERE category_id = ?";
 
         try (Connection connection = getConnection())
