@@ -60,7 +60,7 @@ public class MySqlProfileDao extends MySqlDaoBase implements ProfileDao {
                 String state = result.getString("state");
                 String zip = result.getString("zip");
 
-                Profile profile = new Profile() {{
+                return new Profile() {{
                     setUserId(userId);
                     setFirstName(name);
                     setLastName(lastName);
@@ -71,8 +71,6 @@ public class MySqlProfileDao extends MySqlDaoBase implements ProfileDao {
                     setState(state);
                     setZip(zip);
                 }};
-
-                return profile;
             }
 
         } catch (SQLException e) {
@@ -84,20 +82,20 @@ public class MySqlProfileDao extends MySqlDaoBase implements ProfileDao {
 
     @Override
     public void update(int userId, Profile profile) {
-        String sql = "UPDATE profiles SET user_id = ?, first_name = ?, last_name = ? , phone = ? , email = ?, address = ?, city = ?, state = ?, zip = ? WHERE user_id = ?";
+        String sql = "UPDATE profiles SET first_name = ?, last_name = ? , phone = ? , email = ?, address = ?, city = ?, state = ?, zip = ? WHERE user_id = ?";
 
         try (Connection connection = getConnection()) {
             PreparedStatement ps = connection.prepareStatement(sql);
 
-            ps.setInt(1, userId);
-            ps.setString(2, profile.getFirstName());
-            ps.setString(3, profile.getLastName());
-            ps.setString(4, profile.getPhone());
-            ps.setString(5, profile.getEmail());
-            ps.setString(6, profile.getAddress());
-            ps.setString(7, profile.getCity());
-            ps.setString(8, profile.getState());
-            ps.setString(9, profile.getZip());
+            ps.setString(1, profile.getFirstName());
+            ps.setString(2, profile.getLastName());
+            ps.setString(3, profile.getPhone());
+            ps.setString(4, profile.getEmail());
+            ps.setString(5, profile.getAddress());
+            ps.setString(6, profile.getCity());
+            ps.setString(7, profile.getState());
+            ps.setString(8, profile.getZip());
+            ps.setInt(9, userId);
 
             ps.executeUpdate();
 
@@ -106,5 +104,4 @@ public class MySqlProfileDao extends MySqlDaoBase implements ProfileDao {
             throw new RuntimeException(e);
         }
     }
-
 }
