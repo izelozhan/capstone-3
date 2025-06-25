@@ -38,6 +38,7 @@ public class ProductsController {
         }
     }
 
+
     @GetMapping("{id}")
     @PreAuthorize("permitAll()")
     public Product getById(@PathVariable int id) {
@@ -53,6 +54,7 @@ public class ProductsController {
         }
     }
 
+
     @PostMapping()
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public Product addProduct(@RequestBody Product product) {
@@ -62,6 +64,7 @@ public class ProductsController {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Oops... our bad.");
         }
     }
+
 
     @PutMapping("{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
