@@ -10,17 +10,13 @@ import org.yearup.data.ProductDao;
 import org.yearup.models.Category;
 import org.yearup.models.Product;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.List;
 
 // add the annotations to make this a REST controller
 // add the annotation to make this controller the endpoint for the following url
 // http://localhost:8080/categories
 // add annotation to allow cross site origin requests
+
 @RestController
 @RequestMapping("categories")
 @CrossOrigin
@@ -52,7 +48,6 @@ public class CategoriesController {
         // get the category by id
         return categoryDao.getById(id);
     }
-
 
     // the url to return all products in category 1 would look like this
     // https://localhost:8080/categories/1/products

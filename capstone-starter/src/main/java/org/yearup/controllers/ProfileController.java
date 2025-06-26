@@ -13,8 +13,7 @@ import java.security.Principal;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/profile")
-@PreAuthorize("permitAll()")
+@RequestMapping("profile")
 
 public class ProfileController {
     private ProfileDao profileDao;
@@ -27,13 +26,13 @@ public class ProfileController {
     }
 
     @GetMapping("")
-    @PreAuthorize("permitAll()")
     public Profile getUserById(Principal principal) {
+        //getUserId method is defined below => it gets the use that is logged in and return userID
         return profileDao.getByUserId(getUserId(principal));
     }
 
     @PutMapping()
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_USER')")
     public void updateProfile(Principal principal, @RequestBody Profile profile) {
         try {
             profileDao.update(getUserId(principal), profile);

@@ -9,15 +9,12 @@ import org.springframework.web.bind.annotation.RestController;
 import org.yearup.data.*;
 import org.yearup.models.*;
 
-import java.math.BigDecimal;
 import java.security.Principal;
-import java.sql.Date;
 import java.time.LocalDateTime;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/orders")
-@PreAuthorize("permitAll()")
+@RequestMapping("orders")
 
 public class OrdersController {
     ProfileDao profileDao;
@@ -36,18 +33,24 @@ public class OrdersController {
     @PostMapping()
     @PreAuthorize("hasRole('ROLE_USER')")
     public void checkout(Principal principal) {
-        //get user
+
+        //get user that is logged in
         String userName = principal.getName();
         User user = userDao.getByUserName(userName);
         int userId = user.getId();
-        //get car
+
+        //use shopping card dao to get cart by user id
         ShoppingCart cart = shoppingCartDao.getByUserId(userId);
+
         //if cart is empty, throw error
         if (cart.getItems().isEmpty()) {
             throw new RuntimeException("Shopping cart is empty.");
         }
+
         //get profile
         Profile profile = profileDao.getByUserId(userId);
+
+        //create new order and set values using profileDao
         Order order = new Order();
 
         order.setUserId(userId);

@@ -19,17 +19,8 @@ public class OrderLineItem {
         this.discount = discount;
     }
 
-    public OrderLineItem(){
+    public OrderLineItem() {
 
-    }
-
-
-    public int getLineItemId() {
-        return lineItemId;
-    }
-
-    public void setLineItemId(int lineItemId) {
-        this.lineItemId = lineItemId;
     }
 
     public int getOrderId() {

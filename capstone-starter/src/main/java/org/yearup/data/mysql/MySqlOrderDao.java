@@ -1,14 +1,10 @@
 package org.yearup.data.mysql;
-
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Component;
 import org.yearup.data.OrderDao;
 import org.yearup.models.Order;
 import org.yearup.models.OrderLineItem;
-
 import javax.sql.DataSource;
 import java.sql.*;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 @Component
@@ -31,6 +27,7 @@ public class MySqlOrderDao extends MySqlDaoBase implements OrderDao {
 
         try (Connection connection = getConnection()) {
             PreparedStatement ps = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
+
             ps.setInt(1, order.getUserId());
             ps.setString(2, order.getDate().format(formatter));
             ps.setString(3, order.getAddress());
@@ -39,8 +36,17 @@ public class MySqlOrderDao extends MySqlDaoBase implements OrderDao {
             ps.setString(6, order.getZip());
             ps.setDouble(7, order.getShipping_amount());
 
-            return ps.executeUpdate();
+            int rowsAffected = ps.executeUpdate();
 
+            if (rowsAffected > 0) {
+                ResultSet generatedKeys = ps.getGeneratedKeys();
+
+                if (generatedKeys.next()) {
+
+                    return generatedKeys.getInt(1);
+                }
+            }
+            throw  new RuntimeException("Cannot generate a new order");
 
         } catch (SQLException e) {
             throw new RuntimeException(e);

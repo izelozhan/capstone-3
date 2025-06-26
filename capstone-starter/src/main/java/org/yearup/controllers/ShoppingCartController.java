@@ -23,7 +23,7 @@ import java.util.Map;
 @RestController
 @CrossOrigin
 @PreAuthorize("permitAll()")
-@RequestMapping("/cart")
+@RequestMapping("cart")
 
 public class ShoppingCartController {
     // a shopping cart requires
@@ -42,7 +42,6 @@ public class ShoppingCartController {
     // each method in this controller requires a Principal object as a parameter
     @GetMapping("")
     @PreAuthorize("hasRole('ROLE_USER')")
-
 
     public ShoppingCart getCart(Principal principal) {
         try {
