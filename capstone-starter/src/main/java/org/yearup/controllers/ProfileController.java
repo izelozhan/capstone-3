@@ -13,6 +13,7 @@ import java.security.Principal;
 
 @RestController
 @CrossOrigin
+@RequestMapping("/profile")
 @PreAuthorize("permitAll()")
 
 public class ProfileController {

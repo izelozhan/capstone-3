@@ -1,5 +1,6 @@
 package org.yearup.data.mysql;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ResponseStatusException;
@@ -14,6 +15,7 @@ import java.util.List;
 
 @Component
 public class MySqlProductDao extends MySqlDaoBase implements ProductDao {
+
     public MySqlProductDao(DataSource dataSource) {
         super(dataSource);
     }

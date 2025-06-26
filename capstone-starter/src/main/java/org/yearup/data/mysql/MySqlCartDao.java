@@ -1,6 +1,7 @@
 package org.yearup.data.mysql;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Component;
 import org.springframework.web.server.ResponseStatusException;
 import org.yearup.data.ShoppingCartDao;
 import org.yearup.models.ShoppingCart;
@@ -12,6 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+@Component
 public class MySqlCartDao extends MySqlDaoBase implements ShoppingCartDao {
     MySqlProductDao productService;
 
@@ -148,6 +150,21 @@ public class MySqlCartDao extends MySqlDaoBase implements ShoppingCartDao {
         }
         return false;
 
+    }
+
+    @Override
+    public void clearCart(int userId) {
+        String sql = "DELETE FROM shopping_cart WHERE user_id = ?";
+
+        try (Connection connection = getConnection()) {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, userId);
+
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 
