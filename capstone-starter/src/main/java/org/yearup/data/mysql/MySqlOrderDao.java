@@ -14,7 +14,7 @@ import java.time.format.DateTimeFormatter;
 @Component
 public class MySqlOrderDao extends MySqlDaoBase implements OrderDao {
 
-    public static DateTimeFormatter formatter = DateTimeFormatter.BASIC_ISO_DATE;
+    public static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     public MySqlOrderDao(DataSource dataSource) {
         super(dataSource);
@@ -62,21 +62,6 @@ public class MySqlOrderDao extends MySqlDaoBase implements OrderDao {
             ps.setBigDecimal(5, orderLineItem.getDiscount());
 
             ps.executeUpdate();
-
-            int rowsAffected = ps.executeUpdate();
-
-            if (rowsAffected > 0) {
-                // Retrieve the generated keys
-                ResultSet generatedKeys = ps.getGeneratedKeys();
-
-                if (generatedKeys.next()) {
-                    // Retrieve the auto-incremented ID
-                    int orderLineId = generatedKeys.getInt(1);
-
-                    // get the newly inserted category
-                    return getById(orderLineId);
-                }
-            }
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
