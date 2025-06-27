@@ -77,13 +77,11 @@ This collection covers all the key endpoints — login, product search, cart act
 ---
 
 ## 📸 Screenshots
+![category](https://github.com/user-attachments/assets/dbbd87e5-50f1-445c-9605-1c1862004f0b)
+![filter](https://github.com/user-attachments/assets/cdadf331-c968-4396-aedb-0ad21ebd333c)
+![profile](https://github.com/user-attachments/assets/2cecce98-7ea5-49ed-b087-28d74968120d)
+![cart](https://github.com/user-attachments/assets/16211870-9347-4311-b59f-06ac7fe58f7a)
 
-![category.png](../../Desktop/category.png)
 
-![filter.png](../../Desktop/filter.png)
-
-![profile.png](../../Desktop/profile.png)
-
-![cart.png](../../Desktop/cart.png)
 ---
 
