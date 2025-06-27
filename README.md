@@ -82,6 +82,59 @@ This collection covers all the key endpoints — login, product search, cart act
 ![profile](https://github.com/user-attachments/assets/2cecce98-7ea5-49ed-b087-28d74968120d)
 ![cart](https://github.com/user-attachments/assets/16211870-9347-4311-b59f-06ac7fe58f7a)
 
-
 ---
 
+## 🥧Piece of Code 
+
+```
+  @PostMapping()
+    @PreAuthorize("hasRole('ROLE_USER')")
+    public void checkout(Principal principal) {
+
+        //get user that is logged in
+        String userName = principal.getName();
+        User user = userDao.getByUserName(userName);
+        int userId = user.getId();
+
+        //use shopping card dao to get cart by user id
+        ShoppingCart cart = shoppingCartDao.getByUserId(userId);
+
+        //if cart is empty, throw error
+        if (cart.getItems().isEmpty()) {
+            throw new RuntimeException("Shopping cart is empty.");
+        }
+
+        //get profile
+        Profile profile = profileDao.getByUserId(userId);
+
+        //create new order and set values using profileDao
+        Order order = new Order();
+
+        order.setUserId(userId);
+        order.setDate(LocalDateTime.now());
+        order.setAddress(profile.getAddress());
+        order.setCity(profile.getCity());
+        order.setState(profile.getState());
+        order.setZip(profile.getZip());
+        order.setShipping_amount(10.0);
+
+        int orderId = orderDao.createOrder(order);
+        //int userId, LocalDateTime date, String address, String city, String state, String zip, Double shipping_amount
+
+        //int orderId, int productId, Double sales_price, int quantity, Double discount
+        for (ShoppingCartItem item : cart.getItems().values()) {
+            OrderLineItem line = new OrderLineItem();
+
+            line.setOrderId(orderId);
+            line.setProductId(item.getProductId());
+            line.setSalesPrice(item.getLineTotal());
+            line.setQuantity(item.getQuantity());
+            line.setDiscount(item.getDiscountPercent());
+
+            orderDao.addOrderLineItem(line);
+        }
+
+        shoppingCartDao.clearCart(userId);
+    }
+```
+- This method combines multiple data sources—such as the shopping cart and user profile—into a single atomic action to complete the checkout process. It demonstrates good separation of concerns by delegating responsibilities to DAO and model classes. The use of role-based authorization with @PreAuthorize("hasRole('ROLE_USER')") ensures that only authenticated users can access the endpoint. Additionally, it integrates LocalDateTime for timestamping and leverages SQL to generate order IDs dynamically.
