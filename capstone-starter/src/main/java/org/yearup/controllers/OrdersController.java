@@ -73,7 +73,6 @@ public class OrdersController {
             line.setSalesPrice(item.getLineTotal());
             line.setQuantity(item.getQuantity());
             line.setDiscount(item.getDiscountPercent());
-            //TODO
 
             orderDao.addOrderLineItem(line);
         }
