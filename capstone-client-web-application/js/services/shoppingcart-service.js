@@ -96,6 +96,15 @@ class ShoppingCartService {
         cartHeader.appendChild(button)
 
         contentDiv.appendChild(cartHeader)
+
+        if (this.cart.items.length > 0) {
+            const placeOrderBtn = document.createElement("button");
+            placeOrderBtn.classList.add("btn", "btn-success");
+            placeOrderBtn.innerText = "Place Order";
+            placeOrderBtn.addEventListener("click", () => this.placeOrder());
+            cartHeader.appendChild(placeOrderBtn);
+        }
+
         main.appendChild(contentDiv);
 
         // let parent = document.getElementById("cart-item-list");
@@ -153,12 +162,6 @@ class ShoppingCartService {
                      total: 0
                  }
 
-                 this.cart.total = response.data.total;
-
-                 for (const [key, value] of Object.entries(response.data.items)) {
-                     this.cart.items.push(value);
-                 }
-
                  this.updateCartDisplay()
                  this.loadCartPage()
 
@@ -172,6 +175,26 @@ class ShoppingCartService {
                  templateBuilder.append("error", data, "errors")
              })
     }
+
+    placeOrder() {
+        const url = `${config.baseUrl}/orders`;
+
+        axios.post(url, {})
+            .then(response => {
+                alert("Order placed successfully.");
+                this.clearCart();
+            })
+            .catch(error => {
+                const data = {
+                    error: "Order placement failed."
+                };
+                templateBuilder.append("error", data, "errors");
+            });
+    }
+
+
+
+
 
     updateCartDisplay()
     {

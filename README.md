@@ -65,6 +65,17 @@ This is a Java Spring Boot REST API for an e-commerce application called **EasyS
 
 ---
 
+## 🧪 Postman Collection for API Testing
+
+- A Postman collection is included in the project under:
+- `📁 src/test/resources/easyshop-optional-solo.postman_collection.json`
+- `📁 src/test/resources/easyshop-solo.postman_collection.json`
+
+This collection covers all the key endpoints — login, product search, cart actions, and checkout — and can be used to quickly test the API functionality.
+
+
+---
+
 ## 📸 Screenshots
 
 
