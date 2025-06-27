@@ -85,12 +85,12 @@ main > .content-form .cart-item
 .content-form .photo
 {
     display: flex;
-    gap: 10px;
+    gap: 310px;
 }
 
 .content-form .photo img
 {
-    width: 100px;
+    width: 120px !important;
     cursor: pointer;
     border: solid 1px #ccc;
 }

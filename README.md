@@ -78,6 +78,12 @@ This collection covers all the key endpoints — login, product search, cart act
 
 ## 📸 Screenshots
 
+![category.png](../../Desktop/category.png)
 
+![filter.png](../../Desktop/filter.png)
+
+![profile.png](../../Desktop/profile.png)
+
+![cart.png](../../Desktop/cart.png)
 ---
 

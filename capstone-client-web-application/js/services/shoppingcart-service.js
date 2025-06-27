@@ -88,29 +88,31 @@ class ShoppingCartService {
         h1.innerText = "Cart";
         cartHeader.appendChild(h1);
 
-        const button = document.createElement("button");
-        button.classList.add("btn")
-        button.classList.add("btn-danger")
-        button.innerText = "Clear";
-        button.addEventListener("click", () => this.clearCart());
-        cartHeader.appendChild(button)
+
 
         contentDiv.appendChild(cartHeader)
 
-        if (this.cart.items.length > 0) {
-            const placeOrderBtn = document.createElement("button");
-            placeOrderBtn.classList.add("btn", "btn-success");
-            placeOrderBtn.innerText = "Place Order";
-            placeOrderBtn.addEventListener("click", () => this.placeOrder());
-            cartHeader.appendChild(placeOrderBtn);
-        }
 
-        main.appendChild(contentDiv);
 
         // let parent = document.getElementById("cart-item-list");
         this.cart.items.forEach(item => {
             this.buildItem(item, contentDiv)
         });
+
+                if (this.cart.items.length > 0) {
+                    const placeOrderBtn = document.createElement("button");
+                    placeOrderBtn.classList.add("btn", "btn-success");
+                    placeOrderBtn.innerText = "Place Order";
+                    placeOrderBtn.addEventListener("click", () => this.placeOrder());
+                    cartHeader.appendChild(placeOrderBtn);
+                }
+                const button = document.createElement("button");
+                button.classList.add("btn")
+                button.classList.add("btn-danger")
+                button.innerText = "Clear";
+                button.addEventListener("click", () => this.clearCart());
+                cartHeader.appendChild(button)
+                main.appendChild(contentDiv);
     }
 
     buildItem(item, parent)
