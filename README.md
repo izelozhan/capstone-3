@@ -137,4 +137,6 @@ This collection covers all the key endpoints — login, product search, cart act
         shoppingCartDao.clearCart(userId);
     }
 ```
-- This method combines multiple data sources—such as the shopping cart and user profile—into a single atomic action to complete the checkout process. It demonstrates good separation of concerns by delegating responsibilities to DAO and model classes. The use of role-based authorization with @PreAuthorize("hasRole('ROLE_USER')") ensures that only authenticated users can access the endpoint. Additionally, it integrates LocalDateTime for timestamping and leverages SQL to generate order IDs dynamically.
+- This method pulls together data from the user’s shopping cart and profile to complete the checkout in one step. It keeps things organized by letting the DAO and model classes handle the specific logic. The @PreAuthorize("hasRole('ROLE_USER')") annotation makes sure only logged-in users can place orders. It also uses LocalDateTime to timestamp the order and relies on SQL to generate the order ID when saving to the database.
+
+
