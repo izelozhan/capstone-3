@@ -1,27 +1,36 @@
-
 {{#loggedin}}
-<div id="links">
-    <img src="/images/logo.png" alt="eashshop logo">
-    <a href="#" onclick="loadHome()">Home</a>
-    <a href="#" onclick="editProfile()">Profile</a>
-    <a href="#" onclick="showCart()">View Cart</a>
-</div>
-
-<div>
-    Welcome&nbsp;<span style="font-weight: bold">{{username}}</span>&nbsp;|&nbsp;<a href="#" onclick="userService.logout();return false;">logout</a>
-    <div class="cart" onclick="showCart()">
-        <i class="fa-solid fa-cart-shopping"></i>
-        <div id="cart-items">0</div>
+<header style="display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem; background-color: #fff; box-shadow: 0 2px 4px rgba(0,0,0,0.05); margin-bottom: 1rem;">
+    <div style="display: flex; align-items: center; gap: 2rem;">
+        <img src="/images/logo.png" alt="eashshop logo" style="height: 40px;">
+        <nav style="display: flex; gap: 1.5rem;">
+            <a href="#" onclick="loadHome()" style="text-decoration: none; color: #333;">Home</a>
+            <a href="#" onclick="editProfile()" style="text-decoration: none; color: #333;">Profile</a>
+            <a href="#" onclick="showCart()" style="text-decoration: none; color: #333;">View Cart</a>
+        </nav>
     </div>
-</div>
-{{/loggedin}}
-{{#loggedout}}
-<div id="links">
-    <img src="/images/logo.png" alt="eashshop logo">
-    <a href="#" onclick="loadHome()">Home</a>
-</div>
 
-<div>
-    <a href="#"  onclick="showLoginForm();return false;">login</a>
-</div>
+    <div style="display: flex; align-items: center; gap: 1.5rem;">
+        <span style="color: #333;">Welcome <strong>{{username}}</strong></span>
+        <a href="#" onclick="userService.logout();return false;" style="color: #d33; text-decoration: none;">Logout</a>
+        <div onclick="showCart()" style="position: relative; cursor: pointer;">
+            <i class="fa-solid fa-cart-shopping" style="font-size: 20px; color: #333;"></i>
+            <span id="cart-items" style="position: absolute; top: -8px; right: -12px; background: #d33; color: #fff; font-size: 12px; padding: 2px 6px; border-radius: 999px;">0</span>
+        </div>
+    </div>
+</header>
+{{/loggedin}}
+
+{{#loggedout}}
+<header style="display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem; background-color: #fff; box-shadow: 0 2px 4px rgba(0,0,0,0.05); margin-bottom: 1rem;">
+    <div style="display: flex; align-items: center; gap: 2rem;">
+        <img src="/images/logo.png" alt="eashshop logo" style="height: 40px;">
+        <nav>
+            <a href="#" onclick="loadHome()" style="text-decoration: none; color: #333;">Home</a>
+        </nav>
+    </div>
+
+    <div>
+        <a href="#" onclick="showLoginForm();return false;" style="background-color: #007bff; color: white; padding: 6px 12px; border-radius: 4px; text-decoration: none;">Login</a>
+    </div>
+</header>
 {{/loggedout}}

@@ -1,13 +1,8 @@
 header
 {
-    display: flex;
     justify-content: space-between;
     align-items: center;
-
-    height: 10vh;
-
     padding: 5px 15px;
-    border-bottom: solid 1px #555;
     box-shadow: 5px 2px #eee;
 }
 
@@ -71,6 +66,7 @@ main > .content
     width: 100%;
     height: 87vh;
     overflow: scroll;
+    padding: 10px;
 }
 
 main > .content-form
@@ -116,19 +112,19 @@ main > .content-form .cart-item
 {
     display: flex;
     flex-direction: column;
-
+    padding: 18px !important;
     justify-content: space-between;
     /*width: 30%;*/
     border: solid 1px #ccc;
     padding: 5px;
-    border-radius: 5px;
-    margin: 5px;
+    border-radius: 8px;
+    margin: 10px;
 }
 .product  .photo
 {
     display: flex;
     justify-content: space-between;
-    padding: 0 10px 10px 10px;
+    padding: 0 10px 10px 0px;
 }
 .product  .photo > img
 {
@@ -151,6 +147,7 @@ main > .content-form .cart-item
 .product > .add-button
 {
     display: flex;
+    justify-content: center;
 }
 
 .visible
