@@ -86,7 +86,7 @@ This collection covers all the key endpoints — login, product search, cart act
 
 ## 🥧Piece of Code 
 
-```
+```java
   @PostMapping()
     @PreAuthorize("hasRole('ROLE_USER')")
     public void checkout(Principal principal) {
