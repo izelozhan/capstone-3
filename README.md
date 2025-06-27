@@ -140,3 +140,10 @@ This collection covers all the key endpoints — login, product search, cart act
 - This method pulls together data from the user’s shopping cart and profile to complete the checkout in one step. It keeps things organized by letting the DAO and model classes handle the specific logic. The @PreAuthorize("hasRole('ROLE_USER')") annotation makes sure only logged-in users can place orders. It also uses LocalDateTime to timestamp the order and relies on SQL to generate the order ID when saving to the database.
 
 
+---
+## Possible Future Features
+
+- Email Confirmation
+- Order Status
+- Payment Integration
+--- 
