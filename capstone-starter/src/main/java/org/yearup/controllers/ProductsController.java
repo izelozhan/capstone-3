@@ -41,12 +41,15 @@ public class ProductsController {
 
     @GetMapping("{id}")
     @PreAuthorize("permitAll()")
-    public Product getById(@PathVariable int id) {
+    public Product getById(@PathVariable Integer id) {
         try {
-            var product = productDao.getById(id);
+            Product product= null;
 
-            if (product == null)
-                throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+            if(id != null) {
+                product = productDao.getById(id);
+                if (product == null)
+                    throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+            }
 
             return product;
         } catch (Exception ex) {
@@ -78,8 +81,11 @@ public class ProductsController {
 
     @DeleteMapping("{id}")
     @PreAuthorize("hasRole('ROLE_USER')")
-    public void deleteProduct(@PathVariable int id) {
+    public void deleteProduct(@PathVariable Integer id) {
         try {
+            if(id == null ||productDao.getById(id) == null) {
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+            }
             productDao.delete(id);
         } catch (Exception ex) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Oops... our bad.");

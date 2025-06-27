@@ -2,6 +2,7 @@ package org.yearup.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -44,9 +45,14 @@ public class CategoriesController {
     // add the appropriate annotation for a get action
     @GetMapping("{id}")
     @PreAuthorize("permitAll()")
-    public Category getById(@PathVariable int id) {
+    public ResponseEntity getById(@PathVariable int id) {
         // get the category by id
-        return categoryDao.getById(id);
+        Category cat = categoryDao.getById(id);
+        if(cat != null) {
+            return new ResponseEntity(cat, HttpStatus.OK);
+        } else {
+            return new ResponseEntity(cat, HttpStatus.NOT_FOUND);
+        }
     }
 
     // the url to return all products in category 1 would look like this
@@ -62,9 +68,10 @@ public class CategoriesController {
     // add annotation to ensure that only an ADMIN can call this function
     @PostMapping()
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public Category addCategory(@RequestBody Category category) {
+    public ResponseEntity addCategory(@RequestBody Category category) {
         // insert the category
-        return categoryDao.create(category);
+        return new ResponseEntity(categoryDao.create(category), HttpStatus.CREATED);
+
     }
 
     // add annotation to call this method for a PUT (update) action - the url path must include the categoryId
@@ -85,8 +92,9 @@ public class CategoriesController {
     // add annotation to ensure that only an ADMIN can call this function
     @DeleteMapping("{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public void deleteCategory(@PathVariable int id) {
+    public ResponseEntity deleteCategory(@PathVariable int id) {
         // delete the category by id
         categoryDao.delete(id);
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 }
